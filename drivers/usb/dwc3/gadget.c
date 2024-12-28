@@ -4175,9 +4175,13 @@ void dwc3_bh_work(struct work_struct *w)
 {
 	struct dwc3 *dwc = container_of(w, struct dwc3, bh_work);
 
+	dev_info(dwc->dev, "YumeMichi: Entering dwc3_bh_work");
 	pm_runtime_get_sync(dwc->dev);
+	dev_info(dwc->dev, "YumeMichi: Device runtime resume complete");
 	dwc3_thread_interrupt(dwc->irq, dwc->ev_buf);
+	dev_info(dwc->dev, "YumeMichi: Interrupt handling complete");
 	pm_runtime_put(dwc->dev);
+	dev_info(dwc->dev, "YumeMichi: Exiting dwc3_bh_work");
 }
 
 static irqreturn_t dwc3_thread_interrupt(int irq, void *_evt)
